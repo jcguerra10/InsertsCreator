@@ -13,6 +13,14 @@ public class InsertData {
         this.tableName = tableName;
     }
 
+    public String[] getArr() {
+        return arr;
+    }
+
+    public void setArr(String[] arr) {
+        this.arr = arr;
+    }
+
     public String toString() {
         String s = "INSERT INTO " + tableName + " VALUES (";
         for (int i = 0; i < arr.length; i++) {

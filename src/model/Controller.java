@@ -10,16 +10,21 @@ import java.util.Random;
 public class Controller {
 
     private static final String PATH = "src/data/sDat.csv";
+    private static final String PATH1 = "src/data/sDat1.csv";
 
     private static final int ANAME = 0;
     private static final int ALNAME = 1;
     private static final int AADDRESS = 2;
     private static final int AJOB = 3;
 
+    private static final int ADEPT = 0;
+    private static final int APROJECT = 1;
+
     //--Keys--
     public static final int STRING = 900;
     public static final int NUMBER = 801;
     public static final int DATE = 803;
+    public static final int NOT = 800;
 
     //--Types--
 
@@ -29,6 +34,8 @@ public class Controller {
     public static final int S_JOB = 494;
     public static final int S_ADDRESS = 22;
     public static final int S_SEX = 10;
+    public static final int S_DEPT = 13;
+    public static final int S_PROJECT = 709;
 
     //Number
     public static final int I_ID = 700;
@@ -49,6 +56,7 @@ public class Controller {
     public void cleanKeyWType(){
         key = new ArrayList<>();
         type = new ArrayList<>();
+        inserts = new ArrayList<>();
     }
 
     public void addKeyWType(int k, int t){
@@ -64,6 +72,7 @@ public class Controller {
         List<Integer> numbers = new ArrayList<>();
 
         BufferedReader bis = new BufferedReader(new FileReader(PATH));
+        BufferedReader bis1 = new BufferedReader(new FileReader(PATH1));
 
         for (int i = 0; i < noOfData; i++) {
             String[] arr = new String[noAtt];
@@ -71,9 +80,11 @@ public class Controller {
                 if (key.get(j) == NUMBER) {
                     arr[j] = numberInserts(type.get(j), numbers);
                 } else if (key.get(j) == STRING) {
-                    arr[j] = stringInserts(type.get(j), bis);
+                    arr[j] = stringInserts(type.get(j), bis, bis1);
                 } else if (key.get(j) == DATE) {
                     arr[j] = dateInserts();
+                } else {
+                    arr[j] = "--";
                 }
             }
             InsertData newId = new InsertData(arr, key, tableName);
@@ -94,7 +105,7 @@ public class Controller {
         return sdf.format(adate.getTime());
     }
 
-    private String stringInserts(Integer in, BufferedReader bis) throws IOException {
+    private String stringInserts(Integer in, BufferedReader bis, BufferedReader bis1) throws IOException {
         String res = "";
         switch (in){
             case S_ADDRESS:
@@ -112,11 +123,29 @@ public class Controller {
             case S_SEX:
                 res += stringSex();
                 break;
+            case S_DEPT:
+                res += stringDept(bis1);
+                break;
+            case S_PROJECT:
+                res += stringProject(bis1);
+                break;
             default:
                 res += "--";
                 break;
         }
         return res;
+    }
+
+    private String stringProject(BufferedReader bis1) throws IOException {
+        String s = bis1.readLine();
+        String[] sp = s.split(",");
+        return sp[APROJECT];
+    }
+
+    private String stringDept(BufferedReader bis1) throws IOException {
+        String s = bis1.readLine();
+        String[] sp = s.split(",");
+        return sp[ADEPT];
     }
 
     private String stringSex() {
@@ -192,7 +221,7 @@ public class Controller {
     }
 
     private String numberIRandom() {
-        String res = Math.floor(Math.random()*10000+1000) + "";
+        String res = Math.floor(Math.random()*12+1) + "";
         return res;
     }
 
