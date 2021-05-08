@@ -96,7 +96,7 @@ public class ControllerMenu implements Initializable {
         ArrayList<InsertData> r3 = new ArrayList<>();
 
         try {
-            r3 = cm.makeInserts(cant, "project");
+            r3 = cm.makeInserts(cant, "proyect");
         } catch (IOException e) {
             e.printStackTrace();
         }
