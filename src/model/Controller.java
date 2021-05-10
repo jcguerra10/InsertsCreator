@@ -99,7 +99,7 @@ public class Controller {
         rand = new Random();
 
         adate = Calendar.getInstance();
-        adate.set (rand.nextInt(10)+2014, rand.nextInt(12)+1, rand.nextInt(30)+1);
+        adate.set (rand.nextInt(10)+1998, rand.nextInt(12)+1, rand.nextInt(30)+1);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         return sdf.format(adate.getTime());
