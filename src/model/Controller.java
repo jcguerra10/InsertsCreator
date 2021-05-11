@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,7 +148,8 @@ public class Controller {
 
     private String stringDept(BufferedReader bis1) throws IOException {
         String s = bis1.readLine();
-        String[] sp = s.split(",");
+        String st = cleanString(s);
+        String[] sp = st.split(",");
         return sp[ADEPT];
     }
 
@@ -163,25 +165,29 @@ public class Controller {
 
     private String stringName(BufferedReader bis) throws IOException {
         String s = bis.readLine();
-        String[] sp = s.split(",");
+        String st = cleanString(s);
+        String[] sp = st.split(",");
         return sp[ANAME];
     }
 
     private String stringLName(BufferedReader bis) throws IOException {
         String s = bis.readLine();
-        String[] sp = s.split(",");
+        String st = cleanString(s);
+        String[] sp = st.split(",");
         return sp[ALNAME];
     }
 
     private String stringJob(BufferedReader bis) throws IOException {
         String s = bis.readLine();
-        String[] sp = s.split(",");
+        String st = cleanString(s);
+        String[] sp = st.split(",");
         return sp[AJOB];
     }
 
     private String stringAddress(BufferedReader bis) throws IOException {
         String s = bis.readLine();
-        String[] sp = s.split(",");
+        String st = cleanString(s);
+        String[] sp = st.split(",");
         return sp[AADDRESS];
     }
 
@@ -231,6 +237,10 @@ public class Controller {
         return Math.floor(Math.random()*100+1) + "";
     }
 
-
+    public static String cleanString(String text) {
+        text = Normalizer.normalize(text, Normalizer.Form.NFD);
+        text = text.replaceAll("[^\\p{ASCII}]", "");
+        return text;
+    }
 
 }
