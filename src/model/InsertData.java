@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class InsertData {
     private String[] arr;
-    private ArrayList<Integer> key;
-    private String tableName;
+    private final ArrayList<Integer> key;
+    private final String tableName;
 
     public InsertData(String[] arr, ArrayList<Integer> key, String tableName) {
         this.arr = arr;
@@ -22,20 +22,20 @@ public class InsertData {
     }
 
     public String toString() {
-        String s = "INSERT INTO " + tableName + " VALUES (";
+        StringBuilder s = new StringBuilder("INSERT INTO " + tableName + " VALUES (");
         for (int i = 0; i < arr.length; i++) {
             if (key.get(i) == Controller.NUMBER){
-                s += arr[i] + "";
+                s.append(arr[i]);
             } else if (key.get(i) >= Controller.STRING){
-                s += "'" + arr[i] + "'";
+                s.append("'").append(arr[i]).append("'");
             } else if (key.get(i) == Controller.DATE){
-                s += "TO_DATE('" + arr[i] + "', 'dd/mm/yyyy')";
+                s.append("TO_DATE('").append(arr[i]).append("', 'dd/mm/yyyy')");
             }
             if (i != arr.length - 1){
-                s += ",";
+                s.append(",");
             }
         }
-        s += ");";
-        return s;
+        s.append(");");
+        return s.toString();
     }
 }

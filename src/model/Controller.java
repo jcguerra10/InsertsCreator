@@ -90,9 +90,12 @@ public class Controller {
             InsertData newId = new InsertData(arr, key, tableName);
             inserts.add(newId);
         }
+        bis.close();
+        bis1.close();
         return inserts;
     }
 
+    @SuppressWarnings("MagicConstant")
     private String dateInserts() {
         Calendar adate;
         Random rand;
@@ -149,7 +152,7 @@ public class Controller {
     }
 
     private String stringSex() {
-        String s = "";
+        String s;
         int res = (int) Math.floor(Math.random()*3+1);
         if (res == 1)
             s = "Female";
@@ -221,13 +224,11 @@ public class Controller {
     }
 
     private String numberIRandom() {
-        String res = Math.floor(Math.random()*12+1) + "";
-        return res;
+        return Math.floor(Math.random()*12+1) + "";
     }
 
     private String numberIAge() {
-        String res = Math.floor(Math.random()*100+1) + "";
-        return res;
+        return Math.floor(Math.random()*100+1) + "";
     }
 
 
